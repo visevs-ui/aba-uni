@@ -1,0 +1,7 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "RBT 40-Hour Training — Sample Hugo Site"
+theme = "none"
+enableGitInfo = true
+[params]
+  provider_statement = "This training program is designed to meet the 2026 training eligibility requirement for RBT certification. The training is offered independent of the BACB."
