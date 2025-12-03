@@ -1,0 +1,37 @@
+---
+layout: default
+title: Dashboard
+---
+<h2>Progress Dashboard</h2>
+<p>This dashboard uses browser localStorage to track completed modules and to create a printable certificate.</p>
+<div id="modules-list"></div>
+<button id="generate-cert">Generate Certificate</button>
+<script>
+const modules = ["01_introduction", "02_measurement", "03_assessment", "04_skill_acquisition", "05_behavior_reduction", "06_data_collection", "07_functional_analysis", "08_ethics", "09_environmental_arrangements", "10_group_instruction", "11_generalization", "12_documentation", "13_caregiver_training", "14_crisis_management", "15_review_exam"];
+function render(){
+    const list = document.getElementById('modules-list');
+    list.innerHTML = '';
+    modules.forEach(m => {
+        const key = 'completed_' + m;
+        const done = localStorage.getItem(key) === '1';
+        const el = document.createElement('div');
+        el.innerHTML = `<label><input type="checkbox" data-key="${key}" ${done ? 'checked' : ''}> ${m.replace(/_/g,' ')}</label>`;
+        list.appendChild(el);
+    });
+}
+document.addEventListener('click', (e)=>{
+    if(e.target.matches('input[data-key]')){
+        const k = e.target.getAttribute('data-key');
+        localStorage.setItem(k, e.target.checked ? '1' : '0');
+    }
+    if(e.target.id === 'generate-cert'){
+        const name = prompt('Enter trainee name for certificate:');
+        if(!name) return;
+        const completed = modules.filter(m => localStorage.getItem('completed_'+m) === '1');
+        const w = window.open('', '_blank');
+        w.document.write(`<h1>Certificate of Completion</h1><p>Awarded to <strong>${name}</strong></p><p>Modules completed: ${completed.length}/${modules.length}</p>`);
+        w.print();
+    }
+});
+render();
+</script>

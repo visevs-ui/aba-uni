@@ -1,0 +1,8 @@
+title: "RBT 40-Hour Training (GitHub Pages)"
+description: "RBT course, GitHub Pages compatible"
+baseurl: ""
+url: ""
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
